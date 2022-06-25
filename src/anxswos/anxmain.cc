@@ -60,7 +60,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID /*lpReserved*/)
     //MessageBoxA(nullptr, "Loaded CC", "SWSCC", MB_OK | MB_ICONEXCLAMATION);
     SWOSHook::Init();
     base = SWOSHook::GetBaseAddress();
-    bool overlay = false;
+    /* 
+    ======================================
+    HERE CHANGE VERSION OVERLAY TO OVERIDE
+    */ 
+    bool overlay = true;
     awos = new AnxSWOS(base, overlay);
     SWOSHook::MakeCall(ptrPollEvent + base, PollEventWrapper);
     SWOSHook::MakeCall(ptrInitSWOS + base, InitWrapper);

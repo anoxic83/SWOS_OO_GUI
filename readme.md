@@ -13,6 +13,8 @@ Install wrapper on SWOS menu function and override.
 Both method not change anythink in original SWOS.
 All original SWOS function will be executed (except MenuProc if override).
 
+Change version in anxmain.cc variable bool overlay = (true/false).
+
 ---
 # SWOS-Win32-ASI
 SWOS-Win32-ASI is a framework to create patches to **Sensible World of Soccer** version Windows 32-bit port.
