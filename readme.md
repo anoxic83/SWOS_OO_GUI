@@ -56,10 +56,6 @@ copy plugins folder to this same directory or create directory plugins and copy 
 # Release
 Unpack 7z file and copy all files from folder swos to directory where is swos-port-Release.exe file.
 
-# Configuration
-To configuration competition use swscc.xml located in plugins folder.
-
-Warning! More than 2 division by nation is not supported yet.
 
 # Changes Log
 
