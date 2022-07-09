@@ -2,13 +2,13 @@
 #define SWSLOG_IMPLEMENTATION
 #include "swslog.h"
 //Init vars
-const uintptr_t ptrEnhancement = 0x9CAD20 - 0x400000;
-const uintptr_t ptrSDLWindow = 0x4B697FC - 0x400000;
-const uintptr_t ptrSDLRenderer = 0x5047C30 - 0x400000;
-const uintptr_t ptrGLContext = 0x9CAE80 - 0x400000;
+const uintptr_t ptrEnhancement = 0x9DAF94 - 0x400000;
+const uintptr_t ptrSDLWindow = 0x4B79A6C - 0x400000;
+const uintptr_t ptrSDLRenderer = 0x505940C	 - 0x400000;
+const uintptr_t ptrGLContext = 0x9DB0F0 - 0x400000;
 
-const uintptr_t ptrWindowWidth = 0x4E64F50 - 0x400000;
-const uintptr_t ptrWindowHeight = 0x4E64F54 - 0x400000;
+const uintptr_t ptrWindowWidth = 0x4E76730 - 0x400000;
+const uintptr_t ptrWindowHeight = 0x4E76734 - 0x400000;
 
 // Helpers
 const uintptr_t ptrInputingText = 0x54FDA73 - 0x400000;
@@ -19,7 +19,7 @@ const uintptr_t ptrGameType = 0x5469078 - 0x400000;
 AnxSWOS::AnxSWOS(uintptr_t base, bool overlay)
 : m_Base(base), m_Window(nullptr), m_Renderer(nullptr), m_ImGuiCtx(nullptr), m_GUIOverlay(overlay)
 {
-  log_init(LOG_LEV_INFO, "plugins/anxswos.log");
+  log_init(LOG_LEV_INFO, "plugins/swos_oo_gui.log");
   log_info("[ANXSWOS] => Plugin loaded.");
   log_info("[ANXSWOS] => SWOS Base address: 0x%p", m_Base);
   log_info("[ANXSWOS] => Plugin mode: %s", (m_GUIOverlay) ? "Overlay" : "Override");
@@ -181,7 +181,7 @@ void AnxSWOS::Draw()
   ImGui::Begin(imwinname.c_str());
   if (ImGui::CollapsingHeader("About"))
   {
-    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.0b");
+    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.1b");
     
     ImGui::Text("(c)2022 AnoXic");
   }

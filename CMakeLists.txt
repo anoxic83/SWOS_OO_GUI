@@ -112,9 +112,9 @@ set(ANMSWOS_FILES
   ${IMGUILIB}/backends/imgui_impl_opengl3.cpp
 )
 
-add_library(anxswos SHARED ${ANMSWOS_FILES})
-target_link_libraries(anxswos SDL2 OpenGL32)
-target_compile_definitions(anxswos PUBLIC MAKEDLL)
-set_target_properties(anxswos PROPERTIES SUFFIX ".asi")
+add_library(swos_oo_gui SHARED ${ANMSWOS_FILES})
+target_link_libraries(swos_oo_gui SDL2 OpenGL32)
+target_compile_definitions(swos_oo_gui PUBLIC MAKEDLL)
+set_target_properties(swos_oo_gui PROPERTIES SUFFIX ".asi")
 
 

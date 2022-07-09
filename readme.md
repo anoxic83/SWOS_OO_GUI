@@ -60,6 +60,7 @@ Unpack 7z file and copy all files from folder swos to directory where is swos-po
 
 
 # Changes Log
-
+**v0.2.1b**
+- Update to SWOS version 4.1.2
 **v0.2.0b**
 - Initial github release, for SWOS version 4.1.1

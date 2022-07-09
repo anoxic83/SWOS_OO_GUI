@@ -1,8 +1,9 @@
 #include "swoshook.h"
 
 
-  // SWOS 2020 ver 4.1.1
+  // SWOS 2020 ver 4.1.2
   // const data     //4EA5000
+
   const uintptr_t cSWOSRegPtr = 0x31497;
   const uintptr_t cCompTablePtr = 0x8B46;
 
