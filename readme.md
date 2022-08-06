@@ -58,6 +58,10 @@ copy plugins folder to this same directory or create directory plugins and copy 
 # Release
 Unpack 7z file and copy all files from folder swos to directory where is swos-port-Release.exe file.
 
+# Screenshots
+![ovelay_hex1](https://user-images.githubusercontent.com/24848605/183255400-224f2be8-ae31-440b-b645-8e9bf67f6ef9.png)
+![ovelay_hex2](https://user-images.githubusercontent.com/24848605/183255402-d0149ca5-3cce-460f-9b8a-0dce109e28e9.png)
+![overide](https://user-images.githubusercontent.com/24848605/183255403-ec658e71-731b-4481-aa7f-55f936b2f4d3.png)
 
 # Changes Log
 **v0.2.2b**
