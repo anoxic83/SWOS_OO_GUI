@@ -2,19 +2,22 @@
 #define SWSLOG_IMPLEMENTATION
 #include "swslog.h"
 //Init vars
-const uintptr_t ptrEnhancement = 0x9DAF94 - 0x400000;
-const uintptr_t ptrSDLWindow = 0x4B79A6C - 0x400000;
-const uintptr_t ptrSDLRenderer = 0x505940C	 - 0x400000;
-const uintptr_t ptrGLContext = 0x9DB0F0 - 0x400000;
+const uintptr_t ptrEnhancement = 0x9DB0B0 - 0x400000;
+const uintptr_t ptrSDLWindow = 0x4B79B90 - 0x400000;
+const uintptr_t ptrSDLRenderer = 0x505953C	 - 0x400000;
+const uintptr_t ptrGLContext = 0x9DB20C - 0x400000;
 
-const uintptr_t ptrWindowWidth = 0x4E76730 - 0x400000;
-const uintptr_t ptrWindowHeight = 0x4E76734 - 0x400000;
+const uintptr_t ptrWindowWidth = 0x4E76860 - 0x400000;
+const uintptr_t ptrWindowHeight = 0x4E76864 - 0x400000;
 
 // Helpers
 const uintptr_t ptrInputingText = 0x54FDA73 - 0x400000;
 
 // Career 
-const uintptr_t ptrGameType = 0x5469078 - 0x400000;
+const uintptr_t ptrGameType = 0x547B078 - 0x400000;
+const uintptr_t ptrCareerFileBuffer = 0x54645B6 - 0x400000;
+const uintptr_t ptrNewBalance = 0x5471B92 - 0x400000;
+const uintptr_t ptrCareerTeam = 0x5472136 - 0x400000;
 
 AnxSWOS::AnxSWOS(uintptr_t base, bool overlay)
 : m_Base(base), m_Window(nullptr), m_Renderer(nullptr), m_ImGuiCtx(nullptr), m_GUIOverlay(overlay)
@@ -23,6 +26,9 @@ AnxSWOS::AnxSWOS(uintptr_t base, bool overlay)
   log_info("[ANXSWOS] => Plugin loaded.");
   log_info("[ANXSWOS] => SWOS Base address: 0x%p", m_Base);
   log_info("[ANXSWOS] => Plugin mode: %s", (m_GUIOverlay) ? "Overlay" : "Override");
+  m_CurrentHexAddress = m_Base;
+  m_DataSize = 0xffff;
+  m_HexMemory = false;
 }
 
 AnxSWOS::~AnxSWOS()
@@ -179,11 +185,59 @@ void AnxSWOS::Draw()
   ImGui::SetNextWindowSize(ImVec2(width * 0.2, heigth * 0.2), ImGuiCond_FirstUseEver);
   const std::string imwinname = (m_GUIOverlay) ? "GUI Plugin [OvelayMode]" : "GUI Plugin [Override Mode]";
   ImGui::Begin(imwinname.c_str());
+  if (m_GUIOverlay)
+  {
+    if (ImGui::CollapsingHeader("Hex Editor"))
+    {
+      ImGui::InputInt("Memory Address: ", (int*)&m_CurrentHexAddress, 1, 100, ImGuiInputTextFlags_CharsHexadecimal);
+      ImGui::InputInt("Data Size: ", (int*)&m_DataSize, 1, 100, ImGuiInputTextFlags_CharsHexadecimal);
+
+      if (IsCareer())
+      {
+        ImGui::Text("Career Begin Data <0x%p>:",  ptrCareerFileBuffer + m_Base); ImGui::SameLine();
+        ImGui::PushID("ShowCBD");
+        if (ImGui::Button("Show"))
+        {
+          m_CurrentHexAddress = ptrCareerFileBuffer + m_Base;  
+          m_HexMemory = true;
+        }
+        ImGui::PopID();
+        ImGui::Text("Career New Balance <0x%p>:",  ptrNewBalance + m_Base); ImGui::SameLine();
+        ImGui::PushID("ShowCNB");
+        if (ImGui::Button("Show"))
+        {
+          m_CurrentHexAddress = ptrNewBalance + m_Base;  
+          m_HexMemory = true;
+        }
+        ImGui::PopID();
+        ImGui::Text("Career Team <0x%p>:",  ptrCareerTeam + m_Base); ImGui::SameLine();
+        ImGui::PushID("ShowCCT");
+        if (ImGui::Button("Show"))
+        {
+          m_CurrentHexAddress = ptrCareerTeam + m_Base;  
+          m_HexMemory = true;
+        }
+        ImGui::PopID();
+      }
+      ImGui::Text("SWOS Base <0x%p>:", m_Base); ImGui::SameLine();
+      ImGui::PushID("ShowCBD");
+      if (ImGui::Button("Show"))
+      {
+        m_CurrentHexAddress = m_Base;
+        m_HexMemory = true;
+      }
+      ImGui::PopID();
+      ImGui::Separator();
+      m_HexEdit.DrawContents((void*)m_CurrentHexAddress, m_DataSize);
+    }
+  }
   if (ImGui::CollapsingHeader("About"))
   {
-    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.1b");
-    
-    ImGui::Text("(c)2022 AnoXic");
+    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.2b");
+    ImGui::Text("Copyright (c)2022 AnoXic");
+    ImGui::Separator();
+    ImGui::Text("HexMemory Editor created by: (c) 2017-2019 Omar Cornut");
+    ImGui::Text("https://github.com/ocornut/imgui_club");
   }
   ImGui::End();
 

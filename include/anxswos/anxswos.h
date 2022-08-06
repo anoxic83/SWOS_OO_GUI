@@ -8,7 +8,7 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdlrenderer.h"
-
+#include "imgui_memory_editor.h"
 #include "anxtex.h"
 
 class AnxSWOS
@@ -24,6 +24,10 @@ private:
   bool m_GUIOverlay;
   bool m_OpenGLRenderer;
   bool IsCareer();
+  bool m_HexMemory;
+  MemoryEditor m_HexEdit;
+  uintptr_t m_CurrentHexAddress;
+  size_t m_DataSize;
   SDL_Texture* loadSDLTexture(const char* path);
 public:
   AnxSWOS(uintptr_t base, bool overlay);

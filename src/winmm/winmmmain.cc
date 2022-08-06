@@ -43,7 +43,7 @@ void Init()
 	auto hwSWOS = (uintptr_t)GetModuleHandle(NULL);
 	IMAGE_DOS_HEADER*  dos = (IMAGE_DOS_HEADER*)(hwSWOS);
 	IMAGE_NT_HEADERS*  nt = (IMAGE_NT_HEADERS*)(hwSWOS + dos->e_lfanew);
-	if (nt->OptionalHeader.AddressOfEntryPoint != 0x0F5D00)		// Check the swos-port-release executable version
+	if (nt->OptionalHeader.AddressOfEntryPoint != 0x0F7040)		// Check the swos-port-release executable version
 	{
     if (MessageBoxA(NULL, "Not valid version of SWOS executable\nContinue anyway?", "ASI Loader v0.3.6b", MB_YESNO + MB_ICONASTERISK) == IDYES)
     {

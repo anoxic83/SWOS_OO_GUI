@@ -5,23 +5,23 @@
 #include <cstdio>
 
 // Wrap call init
-const uintptr_t ptrInitSWOS = 0x4397C0 - 0x400000;
-const uintptr_t ptrInitFunction = 0x437DA0 - 0x400000;
+const uintptr_t ptrInitSWOS = 0x043AB40 - 0x400000;
+const uintptr_t ptrInitFunction = 0x438F50 - 0x400000;
 
 // Wrap call processEvent(ecx = const &SDL_Event);
-const uintptr_t ptrPollEvent = 0x412306 - 0x400000;
-const uintptr_t ptrProcessEvent = 0x4120D0 - 0x400000;
+const uintptr_t ptrPollEvent = 0x4122C6 - 0x400000;
+const uintptr_t ptrProcessEvent = 0x412090 - 0x400000;
 
 // OVELAY MENU DRAW WRAPPERS
 // Wrap OpenGL amiga
-const uintptr_t ptrSwapBufferAmiga = 0x4A0EF7 - 0x400000;
+const uintptr_t ptrSwapBufferAmiga = 0x4A2007 - 0x400000;
 // Wrap OpenGL wide
-const uintptr_t ptrSwapBufferWide = 0x4A12FC - 0x400000;
+const uintptr_t ptrSwapBufferWide = 0x4A240C - 0x400000;
 // Wrap Renderer
-const uintptr_t ptrRenderPresent = 0x4A0B53 - 0x400000;
+const uintptr_t ptrRenderPresent = 0x4A1C63 - 0x400000;
 
 // OVERWRITE MENU DRAW
-const uintptr_t ptrMenuProc = 0x043A8C9 - 0x400000;
+const uintptr_t ptrMenuProc = 0x043BB89 - 0x400000;
 
 
 
@@ -64,7 +64,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID /*lpReserved*/)
     ======================================
     HERE CHANGE VERSION OVERLAY TO OVERIDE
     */ 
-    bool overlay = true;
+    bool overlay = false;
     awos = new AnxSWOS(base, overlay);
     SWOSHook::MakeCall(ptrPollEvent + base, PollEventWrapper);
     SWOSHook::MakeCall(ptrInitSWOS + base, InitWrapper);
