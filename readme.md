@@ -4,10 +4,10 @@ Autor: AnoXic
 Plugin for SWOS to overlay or override SWOS Menu with ImGUI.
 Support both SWOS rendering method (SDLRenderer/OpenGL).
 
-### Overlay Mode
-Install wrappers and draw imgui window overlay SWOS.
-Hex-editor is enabled. 
-In career mode, goto buttons to begin career, bank balance and own team is supported.
+> ### Overlay Mode
+> Install wrappers and draw imgui window overlay SWOS.
+> Hex-editor is enabled. 
+> In career mode, goto buttons to begin career, bank balance and own team is supported.
 
 ### Override Mode
 Install wrapper on SWOS menu function and override.
