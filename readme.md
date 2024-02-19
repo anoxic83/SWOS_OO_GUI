@@ -9,8 +9,8 @@ Support both SWOS rendering method (SDLRenderer/OpenGL).
 > Hex-editor is enabled. 
 > In career mode, goto buttons to begin career, bank balance and own team is supported.
 
-### Override Mode
-Install wrapper on SWOS menu function and override.
+> ### Override Mode
+> Install wrapper on SWOS menu function and override.
 
 
 Both method not change anythink in original SWOS.
