@@ -60,6 +60,8 @@ Unpack 7z file and copy all files from folder swos to directory where is swos-po
 
 
 # Changes Log
+**v0.2.3b**
+- Update to SWOS version 6.2.3
 **v0.2.2b**
 - Update to SWOS version 4.1.4
 - Add Memory Hex Editor (autor: (c) 2017-2019 Omar Cornut) in overlay mode

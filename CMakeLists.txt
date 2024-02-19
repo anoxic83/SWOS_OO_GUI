@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.11)
 
 set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 
@@ -83,7 +83,7 @@ include_directories(${STBLIB})
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   #WINMM WRAPPER
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<0:>)
 
   set(WINMM_FILES
     ${WINMMSRC}/winmmmain.cc
@@ -94,7 +94,7 @@ add_library(winmm SHARED ${WINMM_FILES})
 endif()
 
 #ASI PLUGINS
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/plugins)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/plugins/$<0:>)
 
 set(ANMSWOS_FILES
   ${SWSASISRC}/swoshook.cc

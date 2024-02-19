@@ -1,0 +1,4 @@
+D:/Dysk_G/CODE/C_CODE/_GCC/PROJ/_SWOS_PLUGINS/SWOS_OO_GUI/build/CMakeFiles/winmm.dir
+D:/Dysk_G/CODE/C_CODE/_GCC/PROJ/_SWOS_PLUGINS/SWOS_OO_GUI/build/CMakeFiles/swos_oo_gui.dir
+D:/Dysk_G/CODE/C_CODE/_GCC/PROJ/_SWOS_PLUGINS/SWOS_OO_GUI/build/CMakeFiles/edit_cache.dir
+D:/Dysk_G/CODE/C_CODE/_GCC/PROJ/_SWOS_PLUGINS/SWOS_OO_GUI/build/CMakeFiles/rebuild_cache.dir
