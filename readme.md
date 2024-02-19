@@ -4,10 +4,10 @@ Autor: AnoXic
 Plugin for SWOS to overlay or override SWOS Menu with ImGUI.
 Support both SWOS rendering method (SDLRenderer/OpenGL).
 
-###Overlay Mode
+### Overlay Mode
 Install wrappers and draw imgui window overlay SWOS.
 
-###Override Mode
+### Override Mode
 Install wrapper on SWOS menu function and override.
 
 Both method not change anythink in original SWOS.
