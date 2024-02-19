@@ -6,10 +6,13 @@ Support both SWOS rendering method (SDLRenderer/OpenGL).
 
 ### Overlay Mode
 Install wrappers and draw imgui window overlay SWOS.
+Hex-editor is enabled. 
+In career mode, goto buttons to begin career, bank balance and own team is supported.
 
 ### Override Mode
 Install wrapper on SWOS menu function and override.
 
+-
 Both method not change anythink in original SWOS.
 All original SWOS function will be executed (except MenuProc if override).
 
