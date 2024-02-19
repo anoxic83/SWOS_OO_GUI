@@ -12,7 +12,7 @@ In career mode, goto buttons to begin career, bank balance and own team is suppo
 ### Override Mode
 Install wrapper on SWOS menu function and override.
 
--
+
 Both method not change anythink in original SWOS.
 All original SWOS function will be executed (except MenuProc if override).
 
