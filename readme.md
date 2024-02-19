@@ -4,10 +4,12 @@ Autor: AnoXic
 Plugin for SWOS to overlay or override SWOS Menu with ImGUI.
 Support both SWOS rendering method (SDLRenderer/OpenGL).
 
-- Overlay Mode 
+- Overlay Mode
+  
 Install wrappers and draw imgui window overlay SWOS.
 
 - Override Mode
+
 Install wrapper on SWOS menu function and override.
 
 Both method not change anythink in original SWOS.
@@ -66,10 +68,13 @@ Unpack 7z file and copy all files from folder swos to directory where is swos-po
 # Changes Log
 **v0.2.3b**
 - Update to SWOS version 6.2.3
+  
 **v0.2.2b**
 - Update to SWOS version 4.1.4
 - Add Memory Hex Editor (autor: (c) 2017-2019 Omar Cornut) in overlay mode
+  
 **v0.2.1b**
 - Update to SWOS version 4.1.2
+  
 **v0.2.0b**
 - Initial github release, for SWOS version 4.1.1
