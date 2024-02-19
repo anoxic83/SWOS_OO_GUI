@@ -1,0 +1,2 @@
+# Info
+Copy stb headers.
