@@ -107,8 +107,8 @@ set(ANMSWOS_FILES
   ${IMGUILIB}/imgui_tables.cpp
   ${IMGUILIB}/imgui_demo.cpp
   ${IMGUILIB}/misc/cpp/imgui_stdlib.cpp
-  ${IMGUILIB}/backends/imgui_impl_sdl.cpp
-  ${IMGUILIB}/backends/imgui_impl_sdlrenderer.cpp
+  ${IMGUILIB}/backends/imgui_impl_sdl2.cpp
+  ${IMGUILIB}/backends/imgui_impl_sdlrenderer2.cpp
   ${IMGUILIB}/backends/imgui_impl_opengl3.cpp
 )
 

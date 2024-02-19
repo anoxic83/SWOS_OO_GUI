@@ -5,11 +5,17 @@ Plugin for SWOS to overlay or override SWOS Menu with ImGUI.
 Support both SWOS rendering method (SDLRenderer/OpenGL).
 
 > ### Overlay Mode
+
 > Install wrappers and draw imgui window overlay SWOS.
+
 > Hex-editor is enabled. 
+
 > In career mode, goto buttons to begin career, bank balance and own team is supported.
 
+> If OpenGL mode in SWOS enabled, memory-hex-editor window can be dragged off screen
+
 > ### Override Mode
+
 > Install wrapper on SWOS menu function and override.
 
 
@@ -33,10 +39,11 @@ Open this directory as Open Folder, select kit as Visual Studio x86 and complile
 
 # Requirements
 All requirements copy to deps folder
-SDL2
-Glew
-ImGui
-stb - for stb_image.h
+SDL2 - https://github.com/libsdl-org/SDL
+Glew - https://sourceforge.net/projects/glew/files/glew/2.1.0/glew-2.1.0-win32.zip/download
+ImGui - https://github.com/ocornut/imgui
+imgui_memory_editor - https://github.com/ocornut/imgui_club/tree/main
+stb - https://github.com/nothings/stb
 
 # Files
 include/winmm/winmmmain.h - header of wrapper to winmm.dll (Loaded orginaly by SWOS)
@@ -66,6 +73,12 @@ Unpack 7z file and copy all files from folder swos to directory where is swos-po
 ![overide](https://user-images.githubusercontent.com/24848605/183255403-ec658e71-731b-4481-aa7f-55f936b2f4d3.png)
 
 # Changes Log
+**v0.2.4b**
+- Enable off-swos-screen display (OpenGL mode)
+- Update deps:
+- SDL2 -> 2.3.0
+- ImGui -> 1.90.3 (docking)
+
 **v0.2.3b**
 - Update to SWOS version 6.2.3
   

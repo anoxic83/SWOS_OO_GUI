@@ -2,7 +2,7 @@
 #define SWSLOG_IMPLEMENTATION
 #include "swslog.h"
 //Init vars
-const uintptr_t ptrEnhancement = 0xA57534 - 0x400000;
+const uintptr_t ptrEnhancement = 0xA57534 - 0x400000; // Is OpenGL or SDL
 const uintptr_t ptrSDLWindow = 0x4BF60FC - 0x400000;
 const uintptr_t ptrSDLRenderer = 0xA576D8 - 0x400000;
 const uintptr_t ptrGLContext = 0xA576DC - 0x400000;
@@ -38,7 +38,7 @@ AnxSWOS::~AnxSWOS()
   if (m_OpenGLRenderer)
     ImGui_ImplOpenGL3_Shutdown();
   else
-    ImGui_ImplSDLRenderer_Shutdown();
+    ImGui_ImplSDLRenderer2_Shutdown();
   ImGui_ImplSDL2_Shutdown();
   ImGui::DestroyContext();
   log_info("[ANXSWOS] => Plugin unloaded.");
@@ -100,6 +100,7 @@ void AnxSWOS::Init()
   io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
   io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+  io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
   ImGui::StyleColorsDark();
 
@@ -120,20 +121,18 @@ void AnxSWOS::Init()
   else
   {
     ImGui_ImplSDL2_InitForSDLRenderer(m_Window, m_Renderer);
-    ImGui_ImplSDLRenderer_Init(m_Renderer);
+    ImGui_ImplSDLRenderer2_Init(m_Renderer);
   }
 
   if (!m_GUIOverlay)
     if (m_OpenGLRenderer)
-      m_Background = new Texture("swtitle-bg-amiga.bmp");
+      m_Background = new Texture("swtitle-bg.bmp");
     else
-      m_BackgroundSDL = loadSDLTexture("swtitle-bg-amiga.bmp");
+      m_BackgroundSDL = loadSDLTexture("swtitle-bg.bmp");
 }
 
 void AnxSWOS::OnEvent(SDL_Event* e)
 {
-  if (e->type == SDL_QUIT)
-    MessageBox(nullptr, "Hooked", "QUIT", MB_OK);
   if (m_ImGuiCtx != nullptr)
   {
     ImGui_ImplSDL2_ProcessEvent(e);
@@ -172,15 +171,17 @@ void AnxSWOS::Draw()
     ImGui_ImplOpenGL3_NewFrame();
   else
   {
-    ImGui_ImplSDLRenderer_NewFrame();
+    ImGui_ImplSDLRenderer2_NewFrame();
   }
   ImGui_ImplSDL2_NewFrame();
   ImGui::NewFrame();
 
   //DRAW
+  ImVec2 pos = ImGui::GetMainViewport()->Pos;
+  ImVec2 size = ImGui::GetMainViewport()->Size;
   if (!m_GUIOverlay)
     if (m_OpenGLRenderer)
-      ImGui::GetBackgroundDrawList()->AddImage((void*)m_Background->GetID(), ImVec2(0, 0), ImVec2(width, heigth));
+      ImGui::GetBackgroundDrawList()->AddImage((void*)m_Background->GetID(), pos, ImVec2(pos.x + width, pos.y + heigth));
     else
       ImGui::GetBackgroundDrawList()->AddImage((void*)m_BackgroundSDL, ImVec2(0, 0), ImVec2(width, heigth));
 
@@ -199,62 +200,64 @@ void AnxSWOS::Draw()
       if (IsCareer())
       {
         ImGui::Text("Career Begin Data <0x%p>:",  ptrCareerFileBuffer + m_Base); ImGui::SameLine();
-        ImGui::PushID("ShowCBD");
-        if (ImGui::Button("Show"))
+        if (ImGui::Button("Show###BeginData"))
         {
           m_CurrentHexAddress = ptrCareerFileBuffer + m_Base;  
           m_HexMemory = true;
         }
-        ImGui::PopID();
         ImGui::Text("Career New Balance <0x%p>:",  ptrNewBalance + m_Base); ImGui::SameLine();
-        ImGui::PushID("ShowCNB");
-        if (ImGui::Button("Show"))
+        if (ImGui::Button("Show###NewBalance"))
         {
           m_CurrentHexAddress = ptrNewBalance + m_Base;  
           m_HexMemory = true;
         }
-        ImGui::PopID();
         ImGui::Text("Career Team <0x%p>:",  ptrCareerTeam + m_Base); ImGui::SameLine();
-        ImGui::PushID("ShowCCT");
-        if (ImGui::Button("Show"))
+        if (ImGui::Button("Show###CareerTeam"))
         {
           m_CurrentHexAddress = ptrCareerTeam + m_Base;  
           m_HexMemory = true;
         }
-        ImGui::PopID();
       }
       ImGui::Text("SWOS Base <0x%p>:", m_Base); ImGui::SameLine();
-      ImGui::PushID("ShowCBD");
-      if (ImGui::Button("Show"))
+      if (ImGui::Button("Show###SWOSBase"))
       {
         m_CurrentHexAddress = m_Base;
         m_HexMemory = true;
       }
-      ImGui::PopID();
       ImGui::Separator();
       m_HexEdit.DrawContents((void*)m_CurrentHexAddress, m_DataSize);
     }
   }
   if (ImGui::CollapsingHeader("About", ImGuiTreeNodeFlags_DefaultOpen))
   {
-    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.3b");
-    ImGui::Text("Copyright (c)2024 AnoXic");
+    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.4b");
+    ImGui::Text("Copyright (c)2022-2024 AnoXic");
     ImGui::Separator();
     ImGui::Text("HexMemory Editor created by: (c) 2017-2019 Omar Cornut");
     ImGui::Text("https://github.com/ocornut/imgui_club");
   }
   ImGui::End();
 
+
+  // RENDER
   ImGui::Render();
   if (m_OpenGLRenderer)
   {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+      SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
+      SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+      ImGui::UpdatePlatformWindows();
+      ImGui::RenderPlatformWindowsDefault();
+      SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+    }
     SDL_GL_SwapWindow(m_Window);
   }
   else
   {
     SDL_RenderSetScale(m_Renderer, 1, 1);
-    ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(m_Renderer);
   }
 }
