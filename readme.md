@@ -4,12 +4,10 @@ Autor: AnoXic
 Plugin for SWOS to overlay or override SWOS Menu with ImGUI.
 Support both SWOS rendering method (SDLRenderer/OpenGL).
 
-- Overlay Mode
-  
+###Overlay Mode
 Install wrappers and draw imgui window overlay SWOS.
 
-- Override Mode
-
+###Override Mode
 Install wrapper on SWOS menu function and override.
 
 Both method not change anythink in original SWOS.
@@ -29,9 +27,6 @@ On this moment only support MSVC compliler (winmm.dll).
 Suggested method use Visual Studio Code:
 Download CMake Tools extension.
 Open this directory as Open Folder, select kit as Visual Studio x86 and complile.
-
-#Important!
-Replace orginal SDL.dll ( in this plugin used version 2.0.22 ), imgui sdlrenderer needs newer version.
 
 # Requirements
 All requirements copy to deps folder
@@ -56,6 +51,8 @@ src/anxswos/anxtex.cc, - helper class to drawing texture for OpenGL mode
 copy compiled file winmm.dll (from bin folder) to main swos folder (where is swos-port-Release.exe),
 copy plugins folder to this same directory or create directory plugins and copy file swscc.asi
 
+> [!IMPORTANT]
+> Replace orginal SDL.dll ( in this plugin used version 2.0.22 ), imgui sdlrenderer needs newer version.
 ---
 # Release
 Unpack 7z file and copy all files from folder swos to directory where is swos-port-Release.exe file.
