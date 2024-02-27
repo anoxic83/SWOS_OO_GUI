@@ -4,32 +4,23 @@
 #include "anxswos.h"
 #include <cstdio>
 
-// Wrap call init (replace call from _SWOS_main)
-const uintptr_t ptrInitSWOS = 0x485F20 - 0x400000;
-const uintptr_t ptrInitFunction = 0x484290 - 0x400000;
 
-// Wrap call processEvent(ecx = const &SDL_Event);
-/*
-  test esi, esi
-  jz      loc_455007
-  lea     ecx, [ebp+var_3C]
-  call    sub_453D10  ===> Swap this <====
-  cmp     dword_667394, 1
-  jnz     short loc_45414A
-*/
-const uintptr_t ptrPollEvent = 0x4540D9 - 0x400000;
-const uintptr_t ptrProcessEvent = 0x453D10 - 0x400000;
+// Wrap call init (replace call from _SWOS_main)
+const uintptr_t ptrInitSWOS = 0x4861AB - 0x400000;
+const uintptr_t ptrInitFunction = 0x485DC0 - 0x400000;
+
+const uintptr_t ptrPollEvent = 0x453FE0 - 0x400000;
 
 // OVELAY MENU DRAW WRAPPERS
 // Wrap OpenGL amiga => Swap call SDL_GL_SwapBuffers
-const uintptr_t ptrSwapBufferAmiga = 0x4F43BC - 0x400000;
+const uintptr_t ptrSwapBufferAmiga = 0x4F5A6C - 0x400000;
 // Wrap OpenGL wide
-const uintptr_t ptrSwapBufferWide = 0x4F48A2 - 0x400000;
+const uintptr_t ptrSwapBufferWide = 0x4F5F52 - 0x400000;
 // Wrap Renderer => Swap SDL_RenderPresent
-const uintptr_t ptrRenderPresent = 0x4F3ED8 - 0x400000;
+const uintptr_t ptrRenderPresent = 0x4F5588 - 0x400000;
 
 // OVERWRITE MENU DRAW 
-const uintptr_t ptrMenuProc = 0x487159 - 0x400000;
+const uintptr_t ptrMenuProc = 0x4873E9 - 0x400000;
 
 
 
@@ -42,17 +33,11 @@ void InitWrapper()
   SWOSHook::CallSWOS<void>(ptrInitFunction + base);
 }
 
-void PollEventWrapper()
+int __cdecl PollEventWrapper(SDL_Event* event)
 {
-  SDL_Event* e;
-  __asm
-  {
-    mov e, ecx
-    mov eax, ptrProcessEvent
-    add eax, base
-    call eax
-  }
-  awos->OnEvent(e);
+  int ret = SDL_PollEvent(event);
+  awos->OnEvent(event);
+  return ret;
 }
 
 void DrawWrapper()
@@ -72,9 +57,11 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID /*lpReserved*/)
     ======================================
     HERE CHANGE VERSION OVERLAY TO OVERIDE
     */ 
-    bool overlay = true;
+    bool overlay = false;
     awos = new AnxSWOS(base, overlay);
     SWOSHook::MakeCall(ptrPollEvent + base, PollEventWrapper);
+    SWOSHook::SetMemory(ptrPollEvent + base + 5, 0x90, 1);
+    
     SWOSHook::MakeCall(ptrInitSWOS + base, InitWrapper);
     if (overlay)
     {

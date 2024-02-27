@@ -15,6 +15,7 @@ class AnxSWOS
 {
 private:
   uintptr_t m_Base;
+  uintptr_t m_DSeg;
   SDL_Window* m_Window;
   SDL_GLContext m_GLContext;
   SDL_Renderer* m_Renderer;
