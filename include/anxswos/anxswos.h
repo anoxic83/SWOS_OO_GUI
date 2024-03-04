@@ -21,6 +21,8 @@ private:
   SDL_Renderer* m_Renderer;
   ImGuiContext* m_ImGuiCtx;
   Texture* m_Background;
+  uint32_t m_Ticks;
+  uint32_t m_Frames;
   SDL_Texture* m_BackgroundSDL;
   bool m_GUIOverlay;
   bool m_OpenGLRenderer;

@@ -80,6 +80,9 @@ Unpack 7z file and copy all files from folder swos to directory where is swos-po
 ![overide](https://user-images.githubusercontent.com/24848605/183255403-ec658e71-731b-4481-aa7f-55f936b2f4d3.png)
 
 # Changes Log
+**v0.2.6b**
+- Update to SWOS version 6.3.7
+
 **v0.2.5b**
 - Update to SWOS version 6.3.0
 

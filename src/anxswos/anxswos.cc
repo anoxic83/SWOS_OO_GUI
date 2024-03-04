@@ -2,13 +2,13 @@
 #define SWSLOG_IMPLEMENTATION
 #include "swslog.h"
 //Init vars
-const uintptr_t ptrEnhancement = 0xA596D0 - 0x400000; // Is OpenGL or SDL
-const uintptr_t ptrSDLWindow = 0x4BF8298 - 0x400000;
-const uintptr_t ptrSDLRenderer = 0xA59878 - 0x400000;
-const uintptr_t ptrGLContext = 0xA59874 - 0x400000;
+const uintptr_t ptrEnhancement = 0xA596E0 - 0x400000; // Is OpenGL or SDL
+const uintptr_t ptrSDLWindow = 0x4BF82A8 - 0x400000;
+const uintptr_t ptrSDLRenderer = 0xA59888 - 0x400000;
+const uintptr_t ptrGLContext = 0xA59884 - 0x400000;
 
-const uintptr_t ptrWindowWidth = 0x4EF9C84 - 0x400000;
-const uintptr_t ptrWindowHeight = 0x4EF9C88 - 0x400000;
+const uintptr_t ptrWindowWidth = 0x4EF9C94 - 0x400000;
+const uintptr_t ptrWindowHeight = 0x4EF9C98 - 0x400000;
 
 // Helpers
 const uintptr_t ptrInputingText = 0x54FDA73 - 0x400000;
@@ -156,6 +156,7 @@ void AnxSWOS::Draw()
       {
         ExitProcess(0);
       }
+     
     }
     if (m_OpenGLRenderer)
     {
@@ -167,6 +168,7 @@ void AnxSWOS::Draw()
       SDL_SetRenderDrawColor(m_Renderer, 0, 0, 51, 255);
       SDL_RenderClear(m_Renderer);
     }
+    m_Ticks = SDL_GetTicks();
   }
   int width;
   int heigth;
@@ -237,14 +239,13 @@ void AnxSWOS::Draw()
   }
   if (ImGui::CollapsingHeader("About", ImGuiTreeNodeFlags_DefaultOpen))
   {
-    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.5b");
+    ImGui::TextColored(ImVec4(1.f, 1.f, 0.f, 1.f), "AnxSWOS Overlay/Overwite v0.2.6b");
     ImGui::Text("Copyright (c)2022-2024 AnoXic");
     ImGui::Separator();
     ImGui::Text("HexMemory Editor created by: (c) 2017-2019 Omar Cornut");
     ImGui::Text("https://github.com/ocornut/imgui_club");
   }
   ImGui::End();
-
 
   // RENDER
   ImGui::Render();
@@ -266,5 +267,15 @@ void AnxSWOS::Draw()
     SDL_RenderSetScale(m_Renderer, 1, 1);
     ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(m_Renderer);
+  }
+  if (!m_GUIOverlay)
+  {
+    
+    m_Frames++;
+    uint32_t frametime = (uint32_t)(1000.0 / 60.0);
+    while ((SDL_GetTicks() - m_Ticks) <= frametime)
+    {
+      SDL_Delay(1);
+    }
   }
 }

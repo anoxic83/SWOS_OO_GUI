@@ -7,20 +7,20 @@
 
 // Wrap call init (replace call from _SWOS_main)
 const uintptr_t ptrInitSWOS = 0x4861AB - 0x400000;
-const uintptr_t ptrInitFunction = 0x485DC0 - 0x400000;
+const uintptr_t ptrInitFunction = 0x485DD0 - 0x400000;
 
 const uintptr_t ptrPollEvent = 0x453FE0 - 0x400000;
 
 // OVELAY MENU DRAW WRAPPERS
 // Wrap OpenGL amiga => Swap call SDL_GL_SwapBuffers
-const uintptr_t ptrSwapBufferAmiga = 0x4F5A6C - 0x400000;
+const uintptr_t ptrSwapBufferAmiga = 0x4F5F2C - 0x400000;
 // Wrap OpenGL wide
-const uintptr_t ptrSwapBufferWide = 0x4F5F52 - 0x400000;
+const uintptr_t ptrSwapBufferWide = 0x4F6412 - 0x400000;
 // Wrap Renderer => Swap SDL_RenderPresent
-const uintptr_t ptrRenderPresent = 0x4F5588 - 0x400000;
+const uintptr_t ptrRenderPresent = 0x4F5A48 - 0x400000;
 
 // OVERWRITE MENU DRAW 
-const uintptr_t ptrMenuProc = 0x4873E9 - 0x400000;
+const uintptr_t ptrMenuProc = 0x487429 - 0x400000;
 
 
 
@@ -57,7 +57,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID /*lpReserved*/)
     ======================================
     HERE CHANGE VERSION OVERLAY TO OVERIDE
     */ 
-    bool overlay = false;
+    bool overlay = true;
     awos = new AnxSWOS(base, overlay);
     SWOSHook::MakeCall(ptrPollEvent + base, PollEventWrapper);
     SWOSHook::SetMemory(ptrPollEvent + base + 5, 0x90, 1);
